@@ -5,7 +5,11 @@ $(document).ready(function() {
 
     $('#dauca').on('input', function() {
         $(this).next('small').text(DocTienBangChu($(this).val()));
- setTotal();
+       setTotal();
+    });
+    $('#cuoica').on('input', function() {
+        $(this).next('small').text(DocTienBangChu($(this).val()));
+        setTotal();
     });
     $('.thuvao input').on('input', function() {
         var total = 0;
@@ -51,6 +55,7 @@ $(document).ready(function() {
 
     function setTotal() {
         var dauca = parseInt($('#dauca').val());
+        var cuoica = parseInt($('#cuoica').val());
         totalRa = totalRa >= 0 ? totalRa : 0;
         totalVao = totalVao >= 0 ? totalVao : 0;
         var money = totalVao - totalRa - dauca;
