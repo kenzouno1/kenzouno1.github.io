@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dokin Caculator</title>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+    <h4>Đầu ca nhận:</h4>
+        <div class="form-group">
+            <input id="dauca" type="number" step="100000" class="form-control" placeholder="Đầu ca nhận vào" value="1000000">
+            <small></small>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-6 parent thuvao">
+                <h4>Số tiền thu vào</h4>
+                <div class="form-group">
+                    <input id="500" type="text" class="form-control" placeholder="Nhập số tờ 500k">
+                </div>
+                <div class="form-group">
+                    <input id="200" type="text" class="form-control" placeholder="Nhập số tờ 200k">
+                </div>
+                <div class="form-group">
+                    <input id="100" type="text" class="form-control" placeholder="Nhập số tờ 100k">
+                </div>
+                <div class="form-group">
+                    <input id="50" type="text" class="form-control" placeholder="Nhập số tờ 50k">
+                </div>
+                <div class="form-group">
+                    <input id="20" type="text" class="form-control" placeholder="Nhập số tờ 20k">
+                </div>
+                <div class="form-group">
+                    <input id="10" type="text" class="form-control" placeholder="Nhập số tờ 10k">
+                </div>
+                <div class="form-group">
+                    <input id="5" type="text" class="form-control" placeholder="Nhập số tờ 5k">
+                </div>
+                <div class="form-group">
+                    <input id="2" type="text" class="form-control" placeholder="Nhập số tờ 2k">
+                </div>
+                <div class="form-group">
+                    <input id="1" type="text" class="form-control" placeholder="Nhập số tờ 1k">
+                </div>
+                <hr />
+                <p class="d-inline-block money"> Tổng tiền : <span id="total-str">0 đồng</span></p>
+                <p class="d-inline-block ml-1 money">(<span id="total">0</span>) đ</p>
+            </div>
+            <div class="col-md-6 parent repeater chira">
+                <h4>Số tiền chi ra</h4>
+                <div data-repeater-list="chira">
+                    <div class=" row" data-repeater-item>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <input type="text" name="sotien" class="form-control" placeholder="Số tiền" />
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <input type="text" name="lydo" class="form-control" placeholder="Lý Do" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <input data-repeater-delete type="button" value="Xóa" class="btn btn-danger" />
+                        </div>
+                    </div>
+                </div>
+                <input data-repeater-create type="button" value="Add" class="btn btn-info" />
+                <hr />
+                <p class="d-inline-block"> Tổng tiền : <span id="chira-total-str">0 đồng</span></p>
+                <p class="d-inline-block ml-1">(<span id="chira-total">0</span>) đ</p>
+            </div>
+        </div>
+        <hr>
+        <h3>Số tiền cần bàn giao : </h3>
+        <span id="total-cuoingay"></span>
+        (<span id="total-cuoingay-numb">0</span>)
+    </div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js'></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>
