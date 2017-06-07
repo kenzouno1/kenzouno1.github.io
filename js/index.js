@@ -5,6 +5,7 @@ $(document).ready(function() {
 
     $('#dauca').on('input', function() {
         $(this).next('small').text(DocTienBangChu($(this).val()));
+ setTotal();
     });
     $('.thuvao input').on('input', function() {
         var total = 0;
