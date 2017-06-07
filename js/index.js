@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var totalVao = 0;
+    var thucgiao = 0;
     var totalRa = 0;
     $('#dauca').next('small').text(DocTienBangChu($('#dauca').val()));
 
@@ -20,7 +20,7 @@ $(document).ready(function() {
                 total += number * heso;
             }
         });
-        totalVao = total;
+        thucgiao = total;
         $('#total').text(total.formatMoney(0, '.', ','));
         $('#total-str').text(DocTienBangChu(total));
         setTotal();
@@ -57,8 +57,8 @@ $(document).ready(function() {
         var dauca = parseInt($('#dauca').val());
         var cuoica = parseInt($('#cuoica').val());
         totalRa = totalRa >= 0 ? totalRa : 0;
-        totalVao = totalVao >= 0 ? totalVao : 0;
-        var money = totalVao - totalRa - dauca;
+        thucgiao = thucgiao >= 0 ? thucgiao : 0;
+        var money = thucgiao - totalRa - dauca;
         $('#total-cuoingay').text(DocTienBangChu(money));
         $('#total-cuoingay-numb').text(money.formatMoney(0, '.', ','))
     }
