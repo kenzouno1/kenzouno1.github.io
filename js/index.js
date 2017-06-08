@@ -1,66 +1,77 @@
 $(document).ready(function() {
-    var thucgiao = 0;
-    var totalRa = 0;
-    $('#dauca').next('small').text(DocTienBangChu($('#dauca').val()));
-
+    $('input').on('input',function(){
+      getTotal();
+    });
     $('#dauca').on('input', function() {
-        $(this).next('small').text(DocTienBangChu($(this).val()));
-       setTotal();
+        $(this).next('small').text(DocTienBangChu(parseInt($(this).val()) * 1000));
     });
     $('#cuoica').on('input', function() {
-        $(this).next('small').text(DocTienBangChu($(this).val()));
-        setTotal();
+        $(this).next('small').text(DocTienBangChu(parseInt($(this).val()) * 1000));
     });
-    $('.thuvao input').on('input', function() {
-        var total = 0;
-        $('.thuvao').find('input').each(function() {
-            if ($(this).val()) {
-                var number = parseInt($(this).val());
-                var heso = parseInt($(this).attr('id')) * 1000;
-                total += number * heso;
-            }
-        });
-        thucgiao = total;
-        $('#total').text(total.formatMoney(0, '.', ','));
-        $('#total-str').text(DocTienBangChu(total));
-        setTotal();
+
+    $('.tienmat input').on('input', function() {
+        var tienmat = getTienmat();
+        $('#tienmat-str').text(moneyStr(tienmat));
+        getTotal();
     });
 
     $('.repeater').repeater({
+        isFirstItemUndeletable: true,
         hide: function(deleteElement) {
             $(this).slideUp(deleteElement);
             setTimeout(function() {
-                chira();
+                getTotal();
+                var chira = getChira();
+                $('#chira-str').text(moneyStr(chira));
             }, 500);
-
         },
+        show: function(showElement) {
+            $(this).slideDown(showElement);
+        }
     });
 
-    function chira() {
-        var chira = $('.repeater').repeaterVal().chira;
-        var total = 0;
-        $.each(chira, function(index, val) {
+    $('.chira-lst').on('input', 'input', function() {
+        var chira = getChira();
+        $('#chira-str').text(moneyStr(chira));
+    });
+
+    function getChira() {
+        var chira = 0;
+        var arrChira = $('.repeater').repeaterVal().chira;
+        $.each(arrChira, function(index, val) {
             if (val.sotien) {
-                total += parseInt(val.sotien) * 1000;
+                chira += parseInt(val.sotien) * 1000;
             }
         });
-        totalRa = total;
-        setTotal();
-        $('#chira-total').text(total.formatMoney(0, '.', ','));
-        $('#chira-total-str').text(DocTienBangChu(total));
+        return chira;
     }
-    $('.chira ').on('input', 'input', function() {
-        chira();
-    });
 
-    function setTotal() {
-        var dauca = parseInt($('#dauca').val());
-        var cuoica = parseInt($('#cuoica').val());
-        totalRa = totalRa >= 0 ? totalRa : 0;
-        thucgiao = thucgiao >= 0 ? thucgiao : 0;
-        var money = thucgiao - totalRa - dauca;
-        $('#total-cuoingay').text(DocTienBangChu(money));
-        $('#total-cuoingay-numb').text(money.formatMoney(0, '.', ','))
+
+    function getTienmat() {
+        var tienmat = 0;
+        $('.tienmat').find('input').each(function() {
+            if ($(this).val()) {
+                var number = parseInt($(this).val());
+                var heso = parseInt($(this).attr('id')) * 1000;
+                tienmat += number * heso;
+            }
+        });
+        return tienmat;
+    }
+
+    function getTotal() {
+        var tienmat = getTienmat();
+        var chira = getChira();
+        var dauca = $('#dauca').val() ? parseInt($('#dauca').val()) * 1000 : 0;
+        var cuoica = $('#cuoica').val() ? parseInt($('#cuoica').val()) * 1000 : 0;
+        chira = chira >= 0 ? chira : 0;
+        tienmat = tienmat >= 0 ? tienmat : 0;
+        var cangiao = cuoica + dauca + -chira;
+        $('#cangiao').text(moneyStr(cangiao));
+        $('#thucgiao').text(moneyStr(tienmat));
+        var tong = tienmat- cangiao;
+        var prefix = tong >= 0 ? 'Dư' : '';
+        $('#tong').text(prefix + ' '+moneyStr(tong))
     }
 });
 
@@ -187,4 +198,9 @@ function DocTienBangChu(SoTien) {
         return 'Âm ' + KetQua + ' đồng';
     }
     return KetQua + ' đồng'; //.substring(0, 1);//.toUpperCase();// + KetQua.substring(1);
+}
+
+
+function moneyStr(money) {
+    return DocTienBangChu(money) + ' (' + money.formatMoney(0, '.', '.') + 'đ)';
 }
