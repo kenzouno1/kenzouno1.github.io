@@ -58,28 +58,53 @@
                     <input id="1" type="text" class="form-control" placeholder="Nhập số tờ 1k">
                 </div>
             </div>
-            <div class="col-md-6 parent repeater chira-lst">
+            <div class="col-md-6 parent ">
                 <h5>Số tiền chi ra</h5>
-                <div data-repeater-list="chira">
-                    <div class=" row" data-repeater-item>
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <input type="text" name="sotien" class="form-control" placeholder="Số tiền" />
+                <div class="repeater  chira-lst">
+                    <div data-repeater-list="chira">
+                        <div class=" row" data-repeater-item>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <input type="text" name="sotien" class="form-control" placeholder="Số tiền" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <input type="text" name="lydo" class="form-control" placeholder="Lý Do" />
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <input type="text" name="lydo" class="form-control" placeholder="Lý Do" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-2">
-                            <input data-repeater-delete type="button" value="Xóa" class="btn btn-danger" />
+                            <div class="col-md-2">
+                                <input data-repeater-delete type="button" value="Xóa" class="btn btn-danger" />
+                            </div>
                         </div>
                     </div>
+                    <input data-repeater-create type="button" value="Thêm" class="btn btn-info" />
                 </div>
-                <input data-repeater-create type="button" value="Thêm" class="btn btn-info" />
-                <hr />
                 <p class="d-inline-block"> Tổng chi : <span id="chira-str">0 đồng</span></p>
+                <hr />
+                <div class="repeater  themvao-lst">
+                    <h5>Số tiền thêm vào</h5>
+                    <div data-repeater-list="themvao">
+                        <div class=" row" data-repeater-item>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <input type="text" name="sotien" class="form-control" placeholder="Số tiền" />
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <input type="text" name="lydo" class="form-control" placeholder="Lý Do" />
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <input data-repeater-delete type="button" value="Xóa" class="btn btn-danger" />
+                            </div>
+                        </div>
+                    </div>
+                    <input data-repeater-create type="button" value="Thêm" class="btn btn-info" />
+                    <hr />
+                    <p class="d-inline-block"> Tổng thêm : <span id="themvao-str">0 đồng</span></p>
+                </div>
             </div>
         </div>
         <hr>
@@ -90,10 +115,10 @@
             <div class="col-md-6">
                 <h5>Thực giao : </h5>
                 <span id="thucgiao"></span></div>
-                <div class="col-md-12 ">
+            <div class="col-md-12 ">
                 <hr>
-                    <h5> <span id="tong"></span></h5>
-                </div>
+                <h5> <span id="tong"></span></h5>
+            </div>
         </div>
     </div>
     <script src='js/jquery.min.js'></script>

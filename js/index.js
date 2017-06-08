@@ -1,6 +1,7 @@
 $(document).ready(function() {
-    $('input').on('input',function(){
-      getTotal();
+    $(document).on('input', 'input', function() {
+        getTotal();
+        console.log('a');
     });
     $('#dauca').on('input', function() {
         $(this).next('small').text(DocTienBangChu(parseInt($(this).val()) * 1000));
@@ -23,6 +24,8 @@ $(document).ready(function() {
                 getTotal();
                 var chira = getChira();
                 $('#chira-str').text(moneyStr(chira));
+                var themvao = getThemvao();
+                $('#themvao-str').text(moneyStr(themvao));
             }, 500);
         },
         show: function(showElement) {
@@ -33,6 +36,10 @@ $(document).ready(function() {
     $('.chira-lst').on('input', 'input', function() {
         var chira = getChira();
         $('#chira-str').text(moneyStr(chira));
+    });
+    $('.themvao-lst').on('input', 'input', function() {
+        var themvao = getThemvao();
+        $('#themvao-str').text(moneyStr(themvao));
     });
 
     function getChira() {
@@ -46,6 +53,16 @@ $(document).ready(function() {
         return chira;
     }
 
+    function getThemvao() {
+        var themvao = 0;
+        var arrThem = $('.repeater').repeaterVal().themvao;
+        $.each(arrThem, function(index, val) {
+            if (val.sotien) {
+                themvao += parseInt(val.sotien) * 1000;
+            }
+        });
+        return themvao;
+    }
 
     function getTienmat() {
         var tienmat = 0;
@@ -62,16 +79,18 @@ $(document).ready(function() {
     function getTotal() {
         var tienmat = getTienmat();
         var chira = getChira();
+        var themvao = getThemvao();
         var dauca = $('#dauca').val() ? parseInt($('#dauca').val()) * 1000 : 0;
         var cuoica = $('#cuoica').val() ? parseInt($('#cuoica').val()) * 1000 : 0;
         chira = chira >= 0 ? chira : 0;
         tienmat = tienmat >= 0 ? tienmat : 0;
-        var cangiao = cuoica + dauca + -chira;
+        themvao = themvao >= 0 ? themvao : 0;
+        var cangiao = cuoica + dauca - chira + themvao;
         $('#cangiao').text(moneyStr(cangiao));
         $('#thucgiao').text(moneyStr(tienmat));
-        var tong = tienmat- cangiao;
+        var tong = tienmat - cangiao;
         var prefix = tong >= 0 ? 'Dư' : '';
-        $('#tong').text(prefix + ' '+moneyStr(tong))
+        $('#tong').text(prefix + ' ' + moneyStr(tong))
     }
 });
 
