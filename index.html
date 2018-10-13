@@ -4,126 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Dokin Caculator</title>
-    <link rel='stylesheet' href='css/bootstrap.min.css'>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h5>Đầu ca nhận:</h5>
-                <div class="form-group">
-                    <input id="dauca" type="number" step="100" class="form-control" placeholder="Đầu ca nhận vào" value="1000">
-                    <small>Một triệu đồng</small>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <h5>Doanh thu cuối ca:</h5>
-                <div class="form-group">
-                    <input id="cuoica" type="number" step="100" class="form-control" placeholder="Doanh thu cuối ca" value="">
-                    <small></small>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-6 parent tienmat">
-                <h5>Tiền mặt</h5>
-                <div class="form-group">
-                    <input id="500" type="text" class="form-control" placeholder="Nhập số tờ 500k">
-                </div>
-                <div class="form-group">
-                    <input id="200" type="text" class="form-control" placeholder="Nhập số tờ 200k">
-                </div>
-                <div class="form-group">
-                    <input id="100" type="text" class="form-control" placeholder="Nhập số tờ 100k">
-                </div>
-                <div class="form-group">
-                    <input id="50" type="text" class="form-control" placeholder="Nhập số tờ 50k">
-                </div>
-                <div class="form-group">
-                    <input id="20" type="text" class="form-control" placeholder="Nhập số tờ 20k">
-                </div>
-                <div class="form-group">
-                    <input id="10" type="text" class="form-control" placeholder="Nhập số tờ 10k">
-                </div>
-                <div class="form-group">
-                    <input id="5" type="text" class="form-control" placeholder="Nhập số tờ 5k">
-                </div>
-                <div class="form-group">
-                    <input id="2" type="text" class="form-control" placeholder="Nhập số tờ 2k">
-                </div>
-                <div class="form-group">
-                    <input id="1" type="text" class="form-control" placeholder="Nhập số tờ 1k">
-                </div>
-            </div>
-            <div class="col-md-6 parent ">
-                <h5>Số tiền chi ra</h5>
-                <div class="repeater  chira-lst">
-                    <div data-repeater-list="chira">
-                        <div class=" row" data-repeater-item>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <input type="text" name="sotien" class="form-control" placeholder="Số tiền" />
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <input type="text" name="lydo" class="form-control" placeholder="Lý Do" />
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <input data-repeater-delete type="button" value="Xóa" class="btn btn-danger" />
-                            </div>
-                        </div>
-                    </div>
-                    <input data-repeater-create type="button" value="Thêm" class="btn btn-info" />
-                </div>
-                 <hr />
-                <p class="d-inline-block"> Tổng chi : <span id="chira-str">0 đồng</span></p>
-               
-                <div class="repeater  themvao-lst">
-                    <h5>Số tiền thêm vào</h5>
-                    <div data-repeater-list="themvao">
-                        <div class=" row" data-repeater-item>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <input type="text" name="sotien" class="form-control" placeholder="Số tiền" />
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <input type="text" name="lydo" class="form-control" placeholder="Lý Do" />
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <input data-repeater-delete type="button" value="Xóa" class="btn btn-danger" />
-                            </div>
-                        </div>
-                    </div>
-                    <input data-repeater-create type="button" value="Thêm" class="btn btn-info" />
-                    <hr />
-                    <p class="d-inline-block"> Tổng thêm : <span id="themvao-str">0 đồng</span></p>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-6">
-                <h5>Số tiền cần bàn giao : </h5>
-                <span id="cangiao"></span></div>
-            <div class="col-md-6">
-                <h5>Thực giao : </h5>
-                <span id="thucgiao"></span></div>
-            <div class="col-md-12 ">
-                <hr>
-                <h5> <span id="tong"></span></h5>
-            </div>
-        </div>
+    <div id="canvas">
+        <span contenteditable="true" spellcheck="false">Porn</span><span class="orange" contenteditable="true" spellcheck="false">Hub</span>
     </div>
+    <a href="#" class="cumshot">Cum shot</a>
     <script src='js/jquery.min.js'></script>
-    <script src='js/jquery.repeater.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     <script src="js/index.js"></script>
 </body>
 
