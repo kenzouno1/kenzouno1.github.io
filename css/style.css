@@ -1,6 +1,38 @@
-body{
-  padding:20px;
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-hr{
-	margin:0.75rem 0;
+html{
+  display:flex;
+  align-items:center;
+  height:100vh;
+  text-align:center;
+  justify-content: center;  
+}
+#canvas {
+
+  background-color: black;
+  color: white;
+  font: bold 60px Arial;
+  display:inline-block;
+  padding: 40px 30px;
+}
+
+.orange {
+  background-color: orange;
+  color: black;
+  padding: 15px;
+  border-radius: 15px;
+  margin-left: 15px;
+}
+
+.cumshot{
+  position:fixed;
+  bottom:30px;
+  font-size:40px;
+  text-decoration:none;
+  left:50%;
+  transform:translateX(-50%);
+  color:#000;
 }
