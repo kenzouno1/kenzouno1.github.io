@@ -10,6 +10,7 @@ html{
   text-align:center;
   justify-content: center;  
 }
+h1{color:#000;}
 #canvas {
 
   background-color: black;
