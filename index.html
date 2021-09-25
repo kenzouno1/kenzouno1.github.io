@@ -149,6 +149,7 @@
         $("form").on("submit", function (e) {
             e.preventDefault();
             $("#tbDien tbody").html("");
+            $("#tbNuoc tbody").html("");
             var diens = calDien($("#dien").val());
             var nuocs = calNuoc($("#nuoc").val());
             var xemay = $("#xemay").val() * 50;
