@@ -1,21 +1,262 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Pornhub logo</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        #tbDien,
+        #tbNuoc {
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 10px
+        }
+
+        body {
+            font-size: 0.75rem
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Click chuột vào chữ để sửa rồi cum shot thôi <3 <3 <3 </h1>
-    <div id="canvas">
-        <span contenteditable="true" spellcheck="false">Porn</span><span class="orange" contenteditable="true" spellcheck="false">Hub</span>
+    <div class="container">
+        <h1 class="text-center">Tiền điện nước</h1>
+        <form>
+            <div class="form-group row">
+                <label class="col-3">Chỉ số điện</label>
+                <input type="number" id="dien" class="form-control col-9 form-control-sm">
+            </div>
+            <div class="form-group row">
+                <label class="col-3">Chỉ số nước</label>
+                <input type=" number" id="nuoc" class="form-control form-control-sm col-9">
+            </div>
+            <div class="form-group row">
+                <label for="phong" class="col-3">Dãy nhà</label>
+                <select id="phong" class="form-control col-9">
+                    <option value="104">01</option>
+                    <option value="88">02</option>
+                    <option value="84">03</option>
+                    <option value="73">04</option>
+                    <option value="84">05</option>
+                    <option value="88">06</option>
+                    <option value="104">07</option>
+                </select>
+            </div>
+            <div class="form-group row">
+                <label class="col-3">Số xe máy</label>
+                <input type="number" id="xemay" class="form-control col-9">
+            </div>
+            <div class="form-group row">
+                <label class="col-3">Số oto</label>
+                <input type="number" id="oto" class="form-control col-9">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Tính tiền</button>
+        </form>
+        <hr />
+        <div id="tbDien">
+            <h5>Tiền điện</h5>
+            <table class="table table-sm table-striped mt-3">
+                <thead>
+                    <th>Bậc</th>
+                    <th>Đơn giá</th>
+                    <th>Số sử dụng</th>
+                    <th>Thành tiền</th>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <hr />
+        </div>
+        <div id="tbNuoc">
+            <h5>Tiền nước</h5>
+            <table class="table table-sm table-striped mt-3">
+                <thead>
+                    <th>Bậc</th>
+                    <th>Đơn giá</th>
+                    <th>Số sử dụng</th>
+                    <th>Thành tiền</th>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <table class="table table-sm">
+            <tr>
+                <th>Tiền điện</th>
+                <th id="dienTotal"></th>
+            </tr>
+            <tr>
+                <th>Phí biến áp (6%)</th>
+                <th id="bienap"></th>
+            </tr>
+            <tr>
+                <th>VAT (10%)</th>
+                <th id="vat"></th>
+            </tr>
+            <tr>
+                <th>Tổng</th>
+                <th id="dienSub"></th>
+            </tr>
+        </table>
+        <table class="table table-sm">
+            <tr>
+                <th>Tiền Nước</th>
+                <th id="nuocTotal"></th>
+            </tr>
+            <tr>
+                <th>Tiền bơm</th>
+                <th id="bom"></th>
+            </tr>
+            <tr>
+                <th>Tổng</th>
+                <th id="nuocSub"></th>
+            </tr>
+        </table>
+        <table class="table table-sm">
+            <tr>
+                <th>Xe máy</th>
+                <th id="subXe"></th>
+            </tr>
+            <tr>
+                <th>Ô to</th>
+                <th id="subOto"></th>
+            </tr>
+            <tr>
+                <th>Dich vu</th>
+                <th id="subDichVu"></th>
+            </tr>
+        </table>
+        <hr />
+        <h3></h3>
     </div>
-    <a href="#" class="cumshot">Cum shot</a>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-    <script src="js/index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script>
+        Number.prototype.toFixedLocaleString = function (maxDigits = 2, minDigits = 0, locale = "vi-VN") {
+            return this.toLocaleString(locale, {
+                minimumFractionDigits: minDigits,
+                maximumFractionDigits: maxDigits,
+            })
+        }
+
+        $("form").on("submit", function (e) {
+            e.preventDefault();
+            $("#tbDien tbody").html("");
+            var diens = calDien($("#dien").val());
+            var nuocs = calNuoc($("#nuoc").val());
+            var xemay = $("#xemay").val() * 50;
+            var oto = $("#oto").val() * 500;
+            var dienTotal = 0;
+            var nuocTotal = 0;
+
+            diens.map((x, index) => {
+                dienTotal += x.x;
+                $("#tbDien").find("tbody").append("<tr><td>" + (index + 1) + "</td>" +
+                    "<td>" + x.price + "</td>" +
+                    "<td>" + x.num + "</td>" +
+                    "<td>" + (x.x).toFixedLocaleString(3) + "</td>" +
+                    "</tr>")
+                $("#tbDien").show();
+            })
+            nuocs.map((x, index) => {
+                nuocTotal += x.x;
+                $("#tbNuoc").find("tbody").append("<tr><td>" + (index + 1) + "</td>" +
+                    "<td>" + x.price + "</td>" +
+                    "<td>" + x.num + "</td>" +
+                    "<td>" + (x.x).toFixedLocaleString(3) + "</td>" +
+                    "</tr>")
+                $("#tbNuoc").show();
+            })
+            var bom = $("#nuoc").val() * 3.327;
+            var vat = dienTotal * 0.1;
+            var bienap = (dienTotal + vat) * 0.06;
+            var dichvu = $("#phong").val() * 2;
+            $("#dienTotal").html((dienTotal).toFixedLocaleString());
+            $("#vat").html((vat).toFixedLocaleString());
+            $("#bienap").html((bienap).toFixedLocaleString());
+            $("#dienSub").html((dienTotal + vat + bienap).toFixedLocaleString());
+            $("#bom").html(bom.toFixedLocaleString());
+            $("#nuocTotal").html(nuocTotal.toFixedLocaleString());
+            $("#nuocSub").html((nuocTotal + bom).toFixedLocaleString());
+            $("#subXe").html(xemay.toFixedLocaleString());
+            $("#subOto").html(oto.toFixedLocaleString());
+            $("#subDichVu").html(dichvu.toFixedLocaleString());
+            $("h3").text("Tổng tiền: " + (dienTotal + vat + bienap + bom + nuocTotal + xemay + oto + dichvu)
+                .toFixedLocaleString())
+        });
+
+        function calNuoc(total) {
+            var nuocs = [];
+            var level = 0;
+            while (total > 0) {
+                if (level > 2) {
+                    sub = 9999999
+                } else {
+                    sub = 10
+                }
+                const num = (sub <= total ? sub : total);
+                var price = priceNuocLevel[level];
+                var x = price * num;
+                nuocs.push({
+                    num,
+                    x,
+                    price
+                })
+                total -= sub;
+                level++;
+            }
+            return nuocs;
+        }
+
+        function calDien(total) {
+            var level = 0;
+            var diens = [];
+            var sub = 50
+
+            while (total > 0) {
+                if (level > 1 && level < 5) {
+                    sub = 100
+                } else if (level == 5) {
+                    sub = 9999999
+                }
+                const num = (sub <= total ? sub : total);
+                var price = priceDienLevel[level];
+                var x = price * num;
+                dienTotal += x;
+                diens.push({
+                    num,
+                    x,
+                    price
+                })
+                total -= sub;
+                level++;
+            }
+            return diens;
+        }
+
+        var priceDienLevel = [
+            1.678,
+            1.734,
+            2.014,
+            2.536,
+            2.834,
+            2.927,
+        ]
+
+        var priceNuocLevel = [
+            9.500,
+            10.900,
+            14.200,
+            15.700,
+        ]
+    </script>
 </body>
 
 </html>
