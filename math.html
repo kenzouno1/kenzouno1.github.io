@@ -43,6 +43,21 @@
         font-size: 18px;
         border: 3px solid #98d8aa;
         transition: transform 0.2s;
+        &.has-submenu {
+          /* dropdown icon */
+          position: relative;
+          &::after {
+            content: "▼";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 10px;
+            font-size: 15px;
+          }
+          &.active::after {
+            content: "▲";
+          }
+        }
       }
 
       .menu-item:hover {
@@ -65,13 +80,14 @@
         background-color: #ffb6c1;
         color: white;
         border: none;
-        padding: 20px;
+        padding: 30px;
         border-radius: 15px;
         font-size: 28px;
         cursor: pointer;
         border-bottom: 4px solid #ff69b4;
         transition: transform 0.1s;
         font-family: "Comic Neue", cursive;
+        margin-bottom: 10px;
       }
 
       .numpad-button:active {
@@ -197,6 +213,7 @@
         <div class="problem" id="problem"></div>
 
         <div class="numpad">
+          <button class="numpad-button" onclick="appendNumber(0)">0</button>
           <button class="numpad-button" onclick="appendNumber(1)">1</button>
           <button class="numpad-button" onclick="appendNumber(2)">2</button>
           <button class="numpad-button" onclick="appendNumber(3)">3</button>
@@ -207,7 +224,6 @@
           <button class="numpad-button" onclick="appendNumber(8)">8</button>
           <button class="numpad-button" onclick="appendNumber(9)">9</button>
           <button class="numpad-button control-button" onclick="clearAnswer()">C</button>
-          <button class="numpad-button" onclick="appendNumber(0)">0</button>
           <button class="numpad-button control-button" onclick="checkAnswer()">✓</button>
         </div>
 
@@ -255,9 +271,16 @@
         const menuElement = document.getElementById("menu");
         menuConfig.forEach((item, index) => {
           const menuItem = document.createElement("div");
-          menuItem.className = "menu-item";
+          menuItem.className = "menu-item has-submenu";
           menuItem.innerHTML = item.title;
-          menuItem.onclick = () => toggleSubMenu(index);
+          menuItem.onclick = () => {
+            toggleSubMenu(index);
+            if (menuItem.classList.contains("active")) {
+              menuItem.classList.remove("active");
+            } else {
+              menuItem.classList.add("active");
+            }
+          };
 
           const subMenu = document.createElement("div");
           subMenu.className = "submenu";
@@ -386,6 +409,12 @@
         updateDisplay();
       }
 
+      /*************  ✨ Codeium Command ⭐  *************/
+      /**
+       * Kiểm tra và ghi nhận đáp án của người dùng
+       * @return {void}
+       */
+      /******  4b2707c8-3dd4-4759-89f4-e4633b7cc3c7  *******/
       function checkAnswer() {
         if (currentAnswer === "") return;
 
