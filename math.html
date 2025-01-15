@@ -195,6 +195,44 @@
         padding-left: 30px;
         display: none;
       }
+      .problem.correct {
+        animation: correctAnswer 1s ease;
+      }
+
+      .problem.incorrect {
+        animation: incorrectAnswer 1s ease;
+      }
+
+      @keyframes correctAnswer {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+          background-color: #e6ffe6;
+        }
+      }
+
+      @keyframes incorrectAnswer {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+          transform: translateX(-5px);
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+          transform: translateX(5px);
+        }
+      }
     </style>
   </head>
   <body>
@@ -242,7 +280,7 @@
         {
           title: "Phép tính cộng",
           subMenu: [
-            { title: "Cộng từ 1-10", type: "add", min: 1, max: 10 },
+            { title: "Cộng từ 1-10", type: "add", min: 0, max: 10 },
             { title: "Cộng từ 10-20", type: "add", min: 10, max: 20 },
           ],
         },
@@ -322,8 +360,9 @@
           num1 = Math.floor(Math.random() * (config.max - config.min + 1)) + config.min;
           num2 = Math.floor(Math.random() * (num1 - config.min + 1)) + config.min;
         } else {
+          // Ensure that the total does not exceed config.max
           num1 = Math.floor(Math.random() * (config.max - config.min + 1)) + config.min;
-          num2 = Math.floor(Math.random() * (config.max - num1 + 1)) + config.min;
+          num2 = Math.floor(Math.random() * Math.min(config.max - num1 - config.min + 1, config.max - config.min + 1)) + config.min;
         }
 
         const answer = operator === "+" ? num1 + num2 : num1 - num2;
@@ -396,6 +435,7 @@
 
       function appendNumber(num) {
         if (currentAnswer.length < 2) {
+          if (timerAnswer) clearTimeout(timerAnswer);
           currentAnswer += num;
           timerAnswer = setTimeout(() => {
             checkAnswer();
