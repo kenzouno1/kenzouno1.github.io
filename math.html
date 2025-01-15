@@ -1,487 +1,494 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Học Toán Lớp 1</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Học Toán Vui Vẻ</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 10px;
-            background-color: #f0f2f5;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #1a73e8;
-            text-align: center;
-            font-size: 24px;
-            margin: 10px 0;
-        }
-        .menu-item {
-            cursor: pointer;
-            padding: 12px;
-            background-color: #e8f0fe;
-            margin: 5px 0;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        .submenu {
-            margin-left: 20px;
-            display: none;
-        }
-        .exercise-area {
-            display: none;
-            text-align: center;
-        }
-        .problem {
-            font-size: 36px;
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .answer-display {
-            font-size: 32px;
-            margin: 15px 0;
-            min-height: 40px;
-            color: #1a73e8;
-        }
-        .numpad {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            padding: 10px;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-        .numpad-button {
-            background-color: #1a73e8;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 5px;
-            font-size: 24px;
-            cursor: pointer;
-            aspect-ratio: 1;
-        }
-        .numpad-button:active {
-            background-color: #1557b0;
-        }
-        .control-button {
-            grid-column: span 1;
-            background-color: #34a853;
-        }
-        .navigation-buttons {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin: 10px 0;
-        }
-        .nav-button {
-            background-color: #34a853;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 5px;
-            font-size: 20px;
-            cursor: pointer;
-        }
-        .nav-button:disabled {
-            background-color: #ccc;
-        }
-        .progress {
-            margin: 10px 0;
-            font-size: 18px;
-            color: #1a73e8;
-        }
-        .problems-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 5px;
-            margin: 10px 0;
-        }
-        .problem-item {
-            background-color: #e8f0fe;
-            padding: 8px 5px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            text-align: center;
-        }
-        .problem-item.answered {
-            background-color: #e6f4ea;
-        }
-        .problem-item.current {
-            border: 2px solid #1a73e8;
-            font-weight: bold;
-        }
-        .score {
-            font-size: 20px;
-            margin: 15px 0;
-            color: #1a73e8;
-            font-weight: bold;
-        }
-        .history {
-        margin-top: 20px;
-        border-top: 1px solid #e0e0e0;
-        padding-top: 10px;
-    }
+      @import url("https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap");
 
-    .toggle-history {
-        width: 100%;
-        background-color: #f8f9fa;
-        border: 1px solid #ddd;
+      body {
+        font-family: "Comic Neue", cursive;
+        margin: 0;
         padding: 10px;
+        background-color: #ffe5f1;
+        background-image: url("/api/placeholder/50/50"), url("/api/placeholder/50/50");
+        background-position: 20px 20px, calc(100% - 20px) calc(100% - 20px);
+        background-repeat: no-repeat;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff9e5;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 8px 0 #ffb6c1, 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #ff69b4;
         text-align: center;
-        font-size: 16px;
-        color: #1a73e8;
+        font-size: 32px;
+        margin: 10px 0;
+        text-shadow: 2px 2px 0 #ffb6c1;
+      }
+
+      .menu-item {
         cursor: pointer;
-        border-radius: 5px;
-    }
+        padding: 15px;
+        background-color: #b4f8c8;
+        margin: 8px 0;
+        border-radius: 15px;
+        font-size: 18px;
+        border: 3px solid #98d8aa;
+        transition: transform 0.2s;
+      }
 
-    .history-list {
-        margin-top: 10px;
-        max-height: 200px;
-        overflow-y: auto;
-        background-color: white;
-        border-radius: 5px;
-        padding: 10px;
-    }
+      .menu-item:hover {
+        transform: scale(1.02);
+        background-color: #98d8aa;
+      }
 
-    .history-item {
-        padding: 8px;
-        border-bottom: 1px solid #f0f0f0;
+      .problem {
+        font-size: 48px;
+        margin: 20px 0;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 20px;
+        box-shadow: 0 4px 0 #ffb6c1;
+        color: #ff69b4;
+        text-align: center;
+      }
+
+      .numpad-button {
+        background-color: #ffb6c1;
+        color: white;
+        border: none;
+        padding: 20px;
+        border-radius: 15px;
+        font-size: 28px;
+        cursor: pointer;
+        border-bottom: 4px solid #ff69b4;
+        transition: transform 0.1s;
+        font-family: "Comic Neue", cursive;
+      }
+
+      .numpad-button:active {
+        transform: translateY(4px);
+        border-bottom: 0;
+      }
+
+      .control-button {
+        background-color: #b4f8c8;
+        border-bottom-color: #98d8aa;
+      }
+
+      .nav-button {
+        background-color: #b4f8c8;
+        color: #333;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 15px;
+        font-size: 24px;
+        cursor: pointer;
+        border-bottom: 4px solid #98d8aa;
+        font-family: "Comic Neue", cursive;
+      }
+
+      .nav-button:disabled {
+        background-color: #e0e0e0;
+        border-bottom-color: #bdbdbd;
+      }
+
+      .problem-item {
+        background-color: #ffe5f1;
+        padding: 10px 8px;
+        border-radius: 10px;
+        cursor: pointer;
         font-size: 16px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+        text-align: center;
+        border: 2px solid #ffb6c1;
+      }
 
-    .history-item:last-child {
-        border-bottom: none;
-    }
+      .problem-item.answered {
+        background-color: #b4f8c8;
+        border-color: #98d8aa;
+      }
 
-    .history-item.correct {
-        color: #34a853;
-    }
+      .problem-item.current {
+        border: 3px solid #ff69b4;
+        font-weight: bold;
+      }
 
-    .history-item.incorrect {
-        color: #ea4335;
-    }
+      .score {
+        font-size: 24px;
+        margin: 20px 0;
+        color: #ff69b4;
+        font-weight: bold;
+        text-align: center;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 15px;
+        border: 3px solid #ffb6c1;
+      }
 
-    .history-time {
-        font-size: 14px;
-        color: #666;
-    }
+      .answer-display {
+        font-size: 40px;
+        margin: 20px 0;
+        min-height: 50px;
+        color: #ff69b4;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .toggle-history {
+        background-color: #ffe5f1;
+        border: 3px solid #ffb6c1;
+        color: #ff69b4;
+        border-radius: 15px;
+        padding: 12px;
+        font-size: 18px;
+        font-family: "Comic Neue", cursive;
+      }
+
+      .history-item {
+        background-color: #fff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 10px;
+        border: 2px solid #ffe5f1;
+      }
+
+      .history-item.correct {
+        color: #98d8aa;
+        border-color: #b4f8c8;
+      }
+
+      .history-item.incorrect {
+        color: #ff69b4;
+        border-color: #ffb6c1;
+      }
+      .history-button {
+        text-align: center;
+      }
+      .exercise-area {
+        display: none;
+      }
+      .submenu {
+        padding-left: 30px;
+        display: none;
+      }
     </style>
-    </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>Học Toán Lớp 1</h1>
-        <div class="menu" id="menu"></div>
-        <div class="exercise-area" id="exerciseArea">
-            <div class="progress" id="progress"></div>
-            <div class="problems-grid" id="problemsList"></div>
-            
-            <div class="navigation-buttons">
-                <button onclick="previousProblem()" id="prevButton" class="nav-button">←</button>
-                <button onclick="nextProblem()" id="nextButton" class="nav-button">→</button>
-            </div>
+      <h1>Học Toán Lớp 1</h1>
+      <div class="menu" id="menu"></div>
+      <div class="exercise-area" id="exerciseArea">
+        <div class="progress" id="progress"></div>
+        <div class="problems-grid" id="problemsList"></div>
 
-            <div class="problem" id="problem"></div>
-            <div class="answer-display" id="answerDisplay"></div>
-            
-            <div class="numpad">
-                <button class="numpad-button" onclick="appendNumber(1)">1</button>
-                <button class="numpad-button" onclick="appendNumber(2)">2</button>
-                <button class="numpad-button" onclick="appendNumber(3)">3</button>
-                <button class="numpad-button" onclick="appendNumber(4)">4</button>
-                <button class="numpad-button" onclick="appendNumber(5)">5</button>
-                <button class="numpad-button" onclick="appendNumber(6)">6</button>
-                <button class="numpad-button" onclick="appendNumber(7)">7</button>
-                <button class="numpad-button" onclick="appendNumber(8)">8</button>
-                <button class="numpad-button" onclick="appendNumber(9)">9</button>
-                <button class="numpad-button control-button" onclick="clearAnswer()">C</button>
-                <button class="numpad-button" onclick="appendNumber(0)">0</button>
-                <button class="numpad-button control-button" onclick="checkAnswer()">✓</button>
-            </div>
-
-            <div class="score" id="score"></div>
-            <div class="history">
-                <button onclick="toggleHistory()" class="toggle-history" id="toggleHistory">
-                    Xem lịch sử làm bài ▼
-                </button>
-                <div class="history-list" id="historyList" style="display: none;">
-                </div>
-            </div>
+        <div class="navigation-buttons">
+          <button onclick="previousProblem()" id="prevButton" class="nav-button">←</button>
+          <button onclick="nextProblem()" id="nextButton" class="nav-button">→</button>
         </div>
+
+        <div class="problem" id="problem"></div>
+
+        <div class="numpad">
+          <button class="numpad-button" onclick="appendNumber(1)">1</button>
+          <button class="numpad-button" onclick="appendNumber(2)">2</button>
+          <button class="numpad-button" onclick="appendNumber(3)">3</button>
+          <button class="numpad-button" onclick="appendNumber(4)">4</button>
+          <button class="numpad-button" onclick="appendNumber(5)">5</button>
+          <button class="numpad-button" onclick="appendNumber(6)">6</button>
+          <button class="numpad-button" onclick="appendNumber(7)">7</button>
+          <button class="numpad-button" onclick="appendNumber(8)">8</button>
+          <button class="numpad-button" onclick="appendNumber(9)">9</button>
+          <button class="numpad-button control-button" onclick="clearAnswer()">C</button>
+          <button class="numpad-button" onclick="appendNumber(0)">0</button>
+          <button class="numpad-button control-button" onclick="checkAnswer()">✓</button>
+        </div>
+
+        <div class="score" id="score"></div>
+        <div class="history">
+          <div class="history-button">
+            <button onclick="toggleHistory()" class="toggle-history" id="toggleHistory">Xem lịch sử làm bài ▼</button>
+          </div>
+          <div class="history-list" id="historyList" style="display: none"></div>
+        </div>
+      </div>
     </div>
 
     <script>
-        const menuConfig = [
-            {
-                title: 'Phép tính cộng',
-                subMenu: [
-                    { title: 'Cộng từ 1-10', type: 'add', min: 1, max: 10 },
-                    { title: 'Cộng từ 10-20', type: 'add', min: 10, max: 20 }
-                ]
-            },
-            {
-                title: 'Phép tính trừ',
-                subMenu: [
-                    { title: 'Trừ từ 1-10', type: 'subtract', min: 1, max: 10 },
-                    { title: 'Trừ từ 10-20', type: 'subtract', min: 10, max: 20 }
-                ]
-            },
-            {
-                title: 'Phép cộng trừ',
-                subMenu: [
-                    { title: 'Cộng trừ từ 1-10', type: 'mixed', min: 1, max: 10 },
-                    { title: 'Cộng trừ từ 10-20', type: 'mixed', min: 10, max: 20 }
-                ]
-            }
-        ];
+      const menuConfig = [
+        {
+          title: "Phép tính cộng",
+          subMenu: [
+            { title: "Cộng từ 1-10", type: "add", min: 1, max: 10 },
+            { title: "Cộng từ 10-20", type: "add", min: 10, max: 20 },
+          ],
+        },
+        {
+          title: "Phép tính trừ",
+          subMenu: [
+            { title: "Trừ từ 1-10", type: "subtract", min: 1, max: 10 },
+            { title: "Trừ từ 10-20", type: "subtract", min: 10, max: 20 },
+          ],
+        },
+        {
+          title: "Phép cộng trừ",
+          subMenu: [
+            { title: "Cộng trừ từ 1-10", type: "mixed", min: 1, max: 10 },
+            { title: "Cộng trừ từ 10-20", type: "mixed", min: 10, max: 20 },
+          ],
+        },
+      ];
 
-        let currentProblems = [];
-        let currentProblemIndex = 0;
-        let currentAnswer = '';
-        const PROBLEMS_PER_SET = 20;
+      let currentProblems = [];
+      let currentProblemIndex = 0;
+      let currentAnswer = "";
+      const PROBLEMS_PER_SET = 20;
 
-        function createMenu() {
-            const menuElement = document.getElementById('menu');
-            menuConfig.forEach((item, index) => {
-                const menuItem = document.createElement('div');
-                menuItem.className = 'menu-item';
-                menuItem.innerHTML = item.title;
-                menuItem.onclick = () => toggleSubMenu(index);
+      function createMenu() {
+        const menuElement = document.getElementById("menu");
+        menuConfig.forEach((item, index) => {
+          const menuItem = document.createElement("div");
+          menuItem.className = "menu-item";
+          menuItem.innerHTML = item.title;
+          menuItem.onclick = () => toggleSubMenu(index);
 
-                const subMenu = document.createElement('div');
-                subMenu.className = 'submenu';
-                subMenu.id = `submenu-${index}`;
+          const subMenu = document.createElement("div");
+          subMenu.className = "submenu";
+          subMenu.id = `submenu-${index}`;
 
-                item.subMenu.forEach(subItem => {
-                    const subMenuItem = document.createElement('div');
-                    subMenuItem.className = 'menu-item';
-                    subMenuItem.innerHTML = subItem.title;
-                    subMenuItem.onclick = (e) => {
-                        e.stopPropagation();
-                        startNewExerciseSet(subItem);
-                    };
-                    subMenu.appendChild(subMenuItem);
-                });
+          item.subMenu.forEach((subItem) => {
+            const subMenuItem = document.createElement("div");
+            subMenuItem.className = "menu-item";
+            subMenuItem.innerHTML = subItem.title;
 
-                menuElement.appendChild(menuItem);
-                menuElement.appendChild(subMenu);
-            });
-        }
-
-        function toggleSubMenu(index) {
-            const submenu = document.getElementById(`submenu-${index}`);
-            const currentDisplay = submenu.style.display;
-            submenu.style.display = currentDisplay === 'block' ? 'none' : 'block';
-        }
-
-        function generateProblem(config) {
-            let num1, num2, operator;
-            
-            if (config.type === 'mixed') {
-                operator = Math.random() < 0.5 ? '+' : '-';
-            } else {
-                operator = config.type === 'add' ? '+' : '-';
-            }
-
-            if (operator === '-') {
-                num1 = Math.floor(Math.random() * (config.max - config.min + 1)) + config.min;
-                num2 = Math.floor(Math.random() * (num1 - config.min + 1)) + config.min;
-            } else {
-                num1 = Math.floor(Math.random() * (config.max - config.min + 1)) + config.min;
-                num2 = Math.floor(Math.random() * (config.max - num1 + 1)) + config.min;
-            }
-
-            const answer = operator === '+' ? num1 + num2 : num1 - num2;
-            return { 
-                num1, 
-                num2, 
-                operator, 
-                answer,
-                userAnswer: null,
-                isAnswered: false
+            subMenuItem.onclick = (e) => {
+              e.stopPropagation();
+              startNewExerciseSet(subItem);
             };
+            subMenu.appendChild(subMenuItem);
+          });
+
+          menuElement.appendChild(menuItem);
+          menuElement.appendChild(subMenu);
+        });
+      }
+
+      function toggleSubMenu(index) {
+        const submenu = document.getElementById(`submenu-${index}`);
+        const currentDisplay = submenu.style.display;
+        submenu.style.display = currentDisplay === "block" ? "none" : "block";
+      }
+
+      function generateProblem(config) {
+        let num1, num2, operator;
+
+        if (config.type === "mixed") {
+          operator = Math.random() < 0.5 ? "+" : "-";
+        } else {
+          operator = config.type === "add" ? "+" : "-";
         }
 
-        function startNewExerciseSet(config) {
-            currentProblems = [];
-            currentProblemIndex = 0;
-            currentAnswer = '';
-            
-            for (let i = 0; i < PROBLEMS_PER_SET; i++) {
-                currentProblems.push(generateProblem(config));
-            }
-
-            document.getElementById('exerciseArea').style.display = 'block';
-            updateDisplay();
-            updateNavigationButtons();
+        if (operator === "-") {
+          num1 = Math.floor(Math.random() * (config.max - config.min + 1)) + config.min;
+          num2 = Math.floor(Math.random() * (num1 - config.min + 1)) + config.min;
+        } else {
+          num1 = Math.floor(Math.random() * (config.max - config.min + 1)) + config.min;
+          num2 = Math.floor(Math.random() * (config.max - num1 + 1)) + config.min;
         }
 
-        function updateDisplay() {
-            const progress = document.getElementById('progress');
-            progress.innerHTML = `Bài ${currentProblemIndex + 1}/${PROBLEMS_PER_SET}`;
+        const answer = operator === "+" ? num1 + num2 : num1 - num2;
+        return {
+          num1,
+          num2,
+          operator,
+          answer,
+          userAnswer: null,
+          isAnswered: false,
+        };
+      }
 
-            const problem = document.getElementById('problem');
-            const currentProblem = currentProblems[currentProblemIndex];
-            problem.innerHTML = `${currentProblem.num1} ${currentProblem.operator} ${currentProblem.num2} = ?`;
+      function startNewExerciseSet(config) {
+        currentProblems = [];
+        currentProblemIndex = 0;
+        currentAnswer = "";
 
-            document.getElementById('answerDisplay').textContent = currentAnswer;
-
-            updateProblemsList();
-            updateScore();
-            updateNavigationButtons();
+        for (let i = 0; i < PROBLEMS_PER_SET; i++) {
+          currentProblems.push(generateProblem(config));
         }
 
-        function updateProblemsList() {
-            const problemsList = document.getElementById('problemsList');
-            problemsList.innerHTML = currentProblems.map((problem, index) => `
-                <div class="problem-item ${problem.isAnswered ? 'answered' : ''} ${index === currentProblemIndex ? 'current' : ''}"
+        document.getElementById("exerciseArea").style.display = "block";
+        // scroll to the top of the page when starting a new exercise set
+        updateDisplay();
+        updateNavigationButtons();
+      }
+
+      function updateDisplay(answer = "?") {
+        const progress = document.getElementById("progress");
+        progress.innerHTML = `Bài ${currentProblemIndex + 1}/${PROBLEMS_PER_SET}`;
+
+        const problem = document.getElementById("problem");
+        const currentProblem = currentProblems[currentProblemIndex];
+        problem.innerHTML = `${currentProblem.num1} ${currentProblem.operator} ${currentProblem.num2} = ${answer ?? "?"}`;
+
+        document.getElementById("answerDisplay").textContent = currentAnswer;
+
+        // updateProblemsList();
+        updateScore();
+        updateNavigationButtons();
+      }
+
+      function updateProblemsList() {
+        const problemsList = document.getElementById("problemsList");
+        problemsList.innerHTML = currentProblems
+          .map(
+            (problem, index) => `
+                <div class="problem-item ${problem.isAnswered ? "answered" : ""} ${index === currentProblemIndex ? "current" : ""}"
                      onclick="goToProblem(${index})">
                     ${index + 1}
-                    ${problem.isAnswered ? (problem.userAnswer === problem.answer ? '✓' : '✗') : ''}
+                    ${problem.isAnswered ? (problem.userAnswer === problem.answer ? "✓" : "✗") : ""}
                 </div>
-            `).join('');
+            `
+          )
+          .join("");
+      }
+
+      function updateScore() {
+        const answered = currentProblems.filter((p) => p.isAnswered);
+        const correct = answered.filter((p) => p.userAnswer === p.answer);
+        const score = document.getElementById("score");
+        if (answered.length > 0) {
+          score.innerHTML = `Đúng: ${correct.length}/${answered.length} (${Math.round((correct.length / answered.length) * 100)}%)`;
+        } else {
+          score.innerHTML = "";
         }
+      }
+      var timerAnswer = null;
 
-        function updateScore() {
-            const answered = currentProblems.filter(p => p.isAnswered);
-            const correct = answered.filter(p => p.userAnswer === p.answer);
-            const score = document.getElementById('score');
-            if (answered.length > 0) {
-                score.innerHTML = `Đúng: ${correct.length}/${answered.length} (${Math.round(correct.length/answered.length*100)}%)`;
-            } else {
-                score.innerHTML = '';
-            }
+      function appendNumber(num) {
+        if (currentAnswer.length < 2) {
+          currentAnswer += num;
+          timerAnswer = setTimeout(() => {
+            checkAnswer();
+          }, 5000);
+          updateDisplay(currentAnswer);
         }
+      }
 
-        function appendNumber(num) {
-            if (currentAnswer.length < 2) {
-                currentAnswer += num;
-                document.getElementById('answerDisplay').textContent = currentAnswer;
-            }
+      function clearAnswer() {
+        currentAnswer = "";
+        updateDisplay();
+      }
+
+      function checkAnswer() {
+        if (currentAnswer === "") return;
+
+        const currentProblem = currentProblems[currentProblemIndex];
+        currentProblem.userAnswer = parseInt(currentAnswer);
+        currentProblem.isAnswered = true;
+
+        // updateProblemsList();
+        updateScore();
+
+        // Tự động chuyển sang bài tiếp theo sau khi trả lời
+        if (currentProblemIndex < PROBLEMS_PER_SET - 1) {
+          nextProblem();
         }
+        clearAnswer();
+      }
 
-        function clearAnswer() {
-            currentAnswer = '';
-            document.getElementById('answerDisplay').textContent = currentAnswer;
+      function previousProblem() {
+        if (currentProblemIndex > 0) {
+          currentProblemIndex--;
+          clearAnswer();
+          updateDisplay();
         }
+      }
 
-        function checkAnswer() {
-            if (currentAnswer === '') return;
-
-            const currentProblem = currentProblems[currentProblemIndex];
-            currentProblem.userAnswer = parseInt(currentAnswer);
-            currentProblem.isAnswered = true;
-
-            updateProblemsList();
-            updateScore();
-
-            // Tự động chuyển sang bài tiếp theo sau khi trả lời
-            if (currentProblemIndex < PROBLEMS_PER_SET - 1) {
-                nextProblem();
-            }
-            clearAnswer();
+      function nextProblem() {
+        if (currentProblemIndex < PROBLEMS_PER_SET - 1) {
+          currentProblemIndex++;
+          clearAnswer();
+          updateDisplay();
         }
+      }
 
-        function previousProblem() {
-            if (currentProblemIndex > 0) {
-                currentProblemIndex--;
-                clearAnswer();
-                updateDisplay();
-            }
+      function goToProblem(index) {
+        currentProblemIndex = index;
+        clearAnswer();
+        updateDisplay();
+      }
+
+      function updateNavigationButtons() {
+        document.getElementById("prevButton").disabled = currentProblemIndex === 0;
+        document.getElementById("nextButton").disabled = currentProblemIndex === PROBLEMS_PER_SET - 1;
+      }
+
+      let history = [];
+
+      function checkAnswer() {
+        if (currentAnswer === "") return;
+
+        const currentProblem = currentProblems[currentProblemIndex];
+        const userAnswer = parseInt(currentAnswer);
+        currentProblem.userAnswer = userAnswer;
+        currentProblem.isAnswered = true;
+
+        // Thêm vào lịch sử
+        const historyItem = {
+          problem: `${currentProblem.num1} ${currentProblem.operator} ${currentProblem.num2} = ${currentProblem.answer}`,
+          userAnswer: userAnswer,
+          correctAnswer: currentProblem.answer,
+          isCorrect: userAnswer === currentProblem.answer,
+          time: new Date().toLocaleTimeString(),
+        };
+        history.unshift(historyItem);
+        updateHistory();
+
+        // updateProblemsList();
+        updateScore();
+
+        if (currentProblemIndex < PROBLEMS_PER_SET - 1) {
+          nextProblem();
         }
+        clearAnswer();
+      }
 
-        function nextProblem() {
-            if (currentProblemIndex < PROBLEMS_PER_SET - 1) {
-                currentProblemIndex++;
-                clearAnswer();
-                updateDisplay();
-            }
-        }
-
-        function goToProblem(index) {
-            currentProblemIndex = index;
-            clearAnswer();
-            updateDisplay();
-        }
-
-        function updateNavigationButtons() {
-            document.getElementById('prevButton').disabled = currentProblemIndex === 0;
-            document.getElementById('nextButton').disabled = currentProblemIndex === PROBLEMS_PER_SET - 1;
-        }
-
-
-        let history = [];
-
-function checkAnswer() {
-    if (currentAnswer === '') return;
-
-    const currentProblem = currentProblems[currentProblemIndex];
-    const userAnswer = parseInt(currentAnswer);
-    currentProblem.userAnswer = userAnswer;
-    currentProblem.isAnswered = true;
-
-    // Thêm vào lịch sử
-    const historyItem = {
-        problem: `${currentProblem.num1} ${currentProblem.operator} ${currentProblem.num2} = ${currentProblem.answer}`,
-        userAnswer: userAnswer,
-        correctAnswer: currentProblem.answer,
-        isCorrect: userAnswer === currentProblem.answer,
-        time: new Date().toLocaleTimeString()
-    };
-    history.unshift(historyItem);
-    updateHistory();
-
-    updateProblemsList();
-    updateScore();
-
-    if (currentProblemIndex < PROBLEMS_PER_SET - 1) {
-        nextProblem();
-    }
-    clearAnswer();
-}
-
-function updateHistory() {
-    const historyList = document.getElementById('historyList');
-    historyList.innerHTML = history.map(item => `
-        <div class="history-item ${item.isCorrect ? 'correct' : 'incorrect'}">
+      function updateHistory() {
+        const historyList = document.getElementById("historyList");
+        historyList.innerHTML = history
+          .map(
+            (item) => `
+        <div class="history-item ${item.isCorrect ? "correct" : "incorrect"}">
             <span>
                 ${item.problem}
                 <br>
                 Đáp án của bạn: ${item.userAnswer}
-                ${!item.isCorrect ? ` (Đáp án đúng: ${item.correctAnswer})` : ''}
+                ${!item.isCorrect ? ` (Đáp án đúng: ${item.correctAnswer})` : ""}
             </span>
             <span class="history-time">${item.time}</span>
         </div>
-    `).join('');
-}
+    `
+          )
+          .join("");
+      }
 
-function toggleHistory() {
-    const historyList = document.getElementById('historyList');
-    const toggleButton = document.getElementById('toggleHistory');
-    const isVisible = historyList.style.display === 'block';
-    
-    historyList.style.display = isVisible ? 'none' : 'block';
-    toggleButton.innerHTML = `${isVisible ? 'Xem' : 'Ẩn'} lịch sử làm bài ${isVisible ? '▼' : '▲'}`;
-}
-        // Khởi tạo trang
-        createMenu();
+      function toggleHistory() {
+        const historyList = document.getElementById("historyList");
+        const toggleButton = document.getElementById("toggleHistory");
+        const isVisible = historyList.style.display === "block";
+
+        historyList.style.display = isVisible ? "none" : "block";
+        toggleButton.innerHTML = `${isVisible ? "Xem" : "Ẩn"} lịch sử làm bài ${isVisible ? "▼" : "▲"}`;
+      }
+      // Khởi tạo trang
+      createMenu();
     </script>
-</body>
+  </body>
 </html>
