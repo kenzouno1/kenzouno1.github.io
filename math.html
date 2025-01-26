@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Học Toán Vui Vẻ</title>
     <style>
-     /* embeed font local */
+      /* embeed font local */
       @font-face {
         font-family: "Comic Neue";
         src: url("Comic.woff2") format("woff2");
@@ -18,6 +18,7 @@
         background-color: #ffe5f1;
         background-position: 20px 20px, calc(100% - 20px) calc(100% - 20px);
         background-repeat: no-repeat;
+        font-size:18px
       }
 
       .container {
@@ -43,7 +44,7 @@
         background-color: #b4f8c8;
         margin: 8px 0;
         border-radius: 15px;
-        font-size: 18px;
+        font-size: 22px;
         border: 3px solid #98d8aa;
         transition: transform 0.2s;
         &.has-submenu {
@@ -236,6 +237,9 @@
           transform: translateX(5px);
         }
       }
+      #finalScore {
+        margin-bottom: 20px;
+      }
     </style>
   </head>
   <body>
@@ -278,72 +282,71 @@
       </div>
     </div>
 
-<!-- Add Modal HTML -->
-<div id="scoreModal" class="modal" style="display: none;">
-  <div class="modal-content">
-    <span class="close-button" onclick="toggleModal(false)">&times;</span>
-    <h2>Kết quả của bạn</h2>
-    <div id="finalScore"></div>
-    <button onclick="toggleModal(false)" class="nav-button">Đóng</button>
-  </div>
-</div>
+    <!-- Add Modal HTML -->
+    <div id="scoreModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="close-button" onclick="toggleModal(false)">&times;</span>
+        <h2>Kết quả của bạn</h2>
+        <div id="finalScore"></div>
+        <button onclick="toggleModal(false)" class="nav-button">Đóng</button>
+      </div>
+    </div>
 
-<style>
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-  }
+    <style>
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+      }
 
-  .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-    border-radius: 10px;
-    text-align: center;
-  }
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 10px;
+        text-align: center;
+      }
 
-  .close-button {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-  }
+      .close-button {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
 
-  .close-button:hover,
-  .close-button:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-</style>
+      .close-button:hover,
+      .close-button:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    </style>
 
-<script>
-  function toggleModal(show) {
-    const modal = document.getElementById("scoreModal");
-    modal.style.display = show ? "block" : "none";
-  }
+    <script>
+      function toggleModal(show) {
+        const modal = document.getElementById("scoreModal");
+        modal.style.display = show ? "block" : "none";
+      }
 
-  function showScore() {
-    const answered = currentProblems.filter((p) => p.isAnswered);
-    const correct = answered.filter((p) => p.userAnswer === p.answer);
-    const finalScore = document.getElementById("finalScore");
-    finalScore.innerHTML = `Bạn đã trả lời đúng: ${correct.length} trên ${answered.length} câu (${Math.round((correct.length / answered.length) * 100)}%)`;
-    toggleModal(true);
-  }
-</script>
-
+      function showScore() {
+        const answered = currentProblems.filter((p) => p.isAnswered);
+        const correct = answered.filter((p) => p.userAnswer === p.answer);
+        const finalScore = document.getElementById("finalScore");
+        finalScore.innerHTML = `Bạn đã trả lời đúng: ${correct.length} trên ${answered.length} câu (${Math.round((correct.length / answered.length) * 100)}%)`;
+        toggleModal(true);
+      }
+    </script>
 
     <script>
       const menuConfig = [
@@ -373,7 +376,7 @@
       let currentProblems = [];
       let currentProblemIndex = 0;
       let currentAnswer = "";
-      const PROBLEMS_PER_SET = 20;
+      const PROBLEMS_PER_SET = 2;
 
       function createMenu() {
         const menuElement = document.getElementById("menu");
@@ -401,7 +404,15 @@
 
             subMenuItem.onclick = (e) => {
               e.stopPropagation();
-              startNewExerciseSet(subItem);
+              // if exercise is already started, confirm before starting new exercise
+              if (currentProblems.length > 0) {
+                if (confirm("Bạn có muốn bắt đầu bài mới không?")) {
+                  startNewExerciseSet(subItem);
+                }
+              } else {
+                // start new exercise if not started yet
+                startNewExerciseSet(subItem);
+              }
             };
             subMenu.appendChild(subMenuItem);
           });
@@ -426,13 +437,14 @@
           operator = config.type === "add" ? "+" : "-";
         }
 
-        if (operator === "-") {
-          num1 = Math.floor(Math.random() * (config.max - config.min + 1)) + config.min;
-          num2 = Math.floor(Math.random() * (num1 - config.min + 1)) + config.min;
+        if (operator === "+") {
+          // Ensure sum doesn't exceed 10
+          num1 = Math.floor(Math.random() * (10 - config.min + 1)) + config.min;
+          num2 = Math.floor(Math.random() * Math.min(10 - num1 + 1, config.max - num1 + 1)) + config.min;
         } else {
-          // Ensure that the total does not exceed config.max
+          // Ensure result is not negative
           num1 = Math.floor(Math.random() * (config.max - config.min + 1)) + config.min;
-          num2 = Math.floor(Math.random() * Math.min(config.max - num1 - config.min + 1, config.max - config.min + 1)) + config.min;
+          num2 = Math.floor(Math.random() * (num1 + 1)) + config.min;
         }
 
         const answer = operator === "+" ? num1 + num2 : num1 - num2;
@@ -468,8 +480,6 @@
         const problem = document.getElementById("problem");
         const currentProblem = currentProblems[currentProblemIndex];
         problem.innerHTML = `${currentProblem.num1} ${currentProblem.operator} ${currentProblem.num2} = ${answer ?? "?"}`;
-
-        document.getElementById("answerDisplay").textContent = currentAnswer;
 
         // updateProblemsList();
         updateScore();
@@ -513,34 +523,13 @@
           updateDisplay(currentAnswer);
         }
       }
-
+      console.log("aaa")
       function clearAnswer() {
         currentAnswer = "";
         updateDisplay();
       }
 
-      /*************  ✨ Codeium Command ⭐  *************/
-      /**
-       * Kiểm tra và ghi nhận đáp án của người dùng
-       * @return {void}
-       */
-      /******  4b2707c8-3dd4-4759-89f4-e4633b7cc3c7  *******/
-      function checkAnswer() {
-        if (currentAnswer === "") return;
 
-        const currentProblem = currentProblems[currentProblemIndex];
-        currentProblem.userAnswer = parseInt(currentAnswer);
-        currentProblem.isAnswered = true;
-
-        // updateProblemsList();
-        updateScore();
-
-        // Tự động chuyển sang bài tiếp theo sau khi trả lời
-        if (currentProblemIndex < PROBLEMS_PER_SET - 1) {
-          nextProblem();
-        }
-        clearAnswer();
-      }
 
       function previousProblem() {
         if (currentProblemIndex > 0) {
@@ -595,6 +584,8 @@
 
         if (currentProblemIndex < PROBLEMS_PER_SET - 1) {
           nextProblem();
+        }else{
+          showScore();
         }
         clearAnswer();
       }
